@@ -30,6 +30,7 @@ namespace Deep_Sales.Models
         [Required]
         public string UserId { get; set; }
 
+
         [Required]
         public int CategoryId { get; set; }
 

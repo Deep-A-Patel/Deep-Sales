@@ -10,6 +10,7 @@ using Deep_Sales.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.IO;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 
 namespace Deep_Sales.Controllers
 {
@@ -17,12 +18,15 @@ namespace Deep_Sales.Controllers
     public class ProductsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public ProductsController(ApplicationDbContext context)
+        public ProductsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
-            
+            _userManager = userManager;
         }
+
+        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
 
         // GET: Products
@@ -66,19 +70,19 @@ namespace Deep_Sales.Controllers
         [RequestSizeLimit(5 * 1024 * 1024)]
         public async Task<IActionResult> Create([Bind("ProductId,ProductName,Description,Price,ImagePath,CategoryId,DateCreated")] Product product, IFormFile file)
         {
-            //var path = Path.Combine(
-            //     Directory.GetCurrentDirectory(), "wwwroot",
-            //     "Images", file.FileName);
+            var path = Path.Combine(
+                 Directory.GetCurrentDirectory(), "wwwroot",
+                 "Images", file.FileName);
 
-            //using (var stream = new FileStream(path, FileMode.Create))
-            //{
-            //    await file.CopyToAsync(stream);
-            //}
+            using (var stream = new FileStream(path, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
 
-            //ApplicationUser user = await GetCurrentUserAsync();
-            //product.UserId = user.Id;
-            //product.ImagePath = "Images/" + file.FileName;
-            //ModelState.Remove("UserId");
+            ApplicationUser user = await GetCurrentUserAsync();
+            product.UserId = user.Id;
+            product.ImagePath = "Images/" + file.FileName;
+            ModelState.Remove("UserId");
 
             if (ModelState.IsValid)
             {
@@ -89,8 +93,6 @@ namespace Deep_Sales.Controllers
             ViewData["CategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryName", product.CategoryId);
             return View(product);
         }
-
-      
 
         // GET: Products/Edit/5
         public async Task<IActionResult> Edit(int? id)
