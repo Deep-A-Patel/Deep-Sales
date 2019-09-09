@@ -38,6 +38,7 @@ namespace Deep_Sales.Models
         [Required]
         [DataType(DataType.Date)]
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        [Display(Name = "Posted On")]
         public DateTime DateCreated { get; set; }
 
 

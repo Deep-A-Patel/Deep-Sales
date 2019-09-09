@@ -7,9 +7,13 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Deep_Sales.Data;
 using Deep_Sales.Models;
+using Microsoft.AspNetCore.Authorization;
+using System.IO;
+using Microsoft.AspNetCore.Http;
 
 namespace Deep_Sales.Controllers
 {
+    [Authorize]
     public class ProductsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -17,7 +21,9 @@ namespace Deep_Sales.Controllers
         public ProductsController(ApplicationDbContext context)
         {
             _context = context;
+            
         }
+
 
         // GET: Products
         public async Task<IActionResult> Index()
@@ -57,8 +63,23 @@ namespace Deep_Sales.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProductId,ProductName,Description,Price,ImagePath,UserId,CategoryId,DateCreated")] Product product)
+        [RequestSizeLimit(5 * 1024 * 1024)]
+        public async Task<IActionResult> Create([Bind("ProductId,ProductName,Description,Price,ImagePath,CategoryId,DateCreated")] Product product, IFormFile file)
         {
+            //var path = Path.Combine(
+            //     Directory.GetCurrentDirectory(), "wwwroot",
+            //     "Images", file.FileName);
+
+            //using (var stream = new FileStream(path, FileMode.Create))
+            //{
+            //    await file.CopyToAsync(stream);
+            //}
+
+            //ApplicationUser user = await GetCurrentUserAsync();
+            //product.UserId = user.Id;
+            //product.ImagePath = "Images/" + file.FileName;
+            //ModelState.Remove("UserId");
+
             if (ModelState.IsValid)
             {
                 _context.Add(product);
@@ -68,6 +89,8 @@ namespace Deep_Sales.Controllers
             ViewData["CategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryName", product.CategoryId);
             return View(product);
         }
+
+      
 
         // GET: Products/Edit/5
         public async Task<IActionResult> Edit(int? id)
