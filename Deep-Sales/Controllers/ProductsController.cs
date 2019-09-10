@@ -122,11 +122,13 @@ namespace Deep_Sales.Controllers
             {
                 return NotFound();
             }
-
+            ModelState.Remove("UserId");
             if (ModelState.IsValid)
             {
                 try
                 {
+                    var user = await GetCurrentUserAsync();
+                    product.UserId = user.Id;
                     _context.Update(product);
                     await _context.SaveChangesAsync();
                 }
