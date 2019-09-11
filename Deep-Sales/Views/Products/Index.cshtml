@@ -1,4 +1,9 @@
 ﻿@model IEnumerable<Deep_Sales.Models.Product>
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
 
 @{
     ViewData["Title"] = "Index";
@@ -16,8 +21,8 @@
                 @Html.DisplayNameFor(model => model.ProductName)
             </th>
             @*<th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>*@
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.Price)
             </th>
@@ -25,47 +30,58 @@
                 @Html.DisplayNameFor(model => model.ImagePath)
             </th>
             @*<th>
-                @Html.DisplayNameFor(model => model.UserId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Category)
-            </th>*@
+                    @Html.DisplayNameFor(model => model.UserId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Category)
+                </th>*@
             @*<th>
-                @Html.DisplayNameFor(model => model.DateCreated)
-            </th>*@
+                    @Html.DisplayNameFor(model => model.DateCreated)
+                </th>*@
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductName)
-            </td>
-            @*<td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>*@
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                <img width="200" height="200" src="@Url.Content(item.ImagePath)" />
-            </td>
-            @*<td>
-            @Html.DisplayFor(modelItem => item.UserId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Category.CategoryName)
-        </td>*@
-            @*<td>
-            @Html.DisplayFor(modelItem => item.DateCreated)
-        </td>*@
-        <td>
-            <a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |
-            <a asp-action="Details" asp-route-id="@item.ProductId">Details</a> |
-            <a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>
-        </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductName)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    <img width="200" height="200" src="@Url.Content(item.ImagePath)" />
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.UserId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Category.CategoryName)
+                    </td>*@
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.DateCreated)
+                    </td>*@
+                @{ if (UserManager.GetUserAsync(User).Result.Id == item.UserId)
+                    {
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.ProductId">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            <a asp-action="Details" asp-route-id="@item.ProductId">Details</a>
+                        </td>
+                    }
+                }
+            </tr>
+        }
     </tbody>
 </table>
