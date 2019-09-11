@@ -30,6 +30,9 @@ namespace Deep_Sales.Models
         [Required]
         public string UserId { get; set; }
 
+        [Display(Name = "Seller")]
+        public ApplicationUser User { get; set; }
+
 
         [Required]
         public int CategoryId { get; set; }
