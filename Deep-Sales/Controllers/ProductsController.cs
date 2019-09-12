@@ -47,6 +47,8 @@ namespace Deep_Sales.Controllers
             var product = await _context.Product
                 .Include(p => p.Category)
                 .Include(p => p.User)
+                .Include(p => p.Comments)
+                .ThenInclude(c => c.User)
                 .FirstOrDefaultAsync(m => m.ProductId == id);
             if (product == null)
             {
