@@ -45,6 +45,6 @@ namespace Deep_Sales.Models
         [Display(Name = "Posted On")]
         public DateTime DateCreated { get; set; }
 
-
+        public virtual ICollection<Comment> Comments { get; set; }
     }
 }

@@ -15,6 +15,8 @@ namespace Deep_Sales.Models
         [Required]
         public string UserId { get; set; }
 
+        public ApplicationUser User { get; set; }
+
         [Display(Name ="Comment")]
         public string CommentText { get; set; }
 
