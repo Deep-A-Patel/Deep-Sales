@@ -16,10 +16,7 @@
     <hr />
     @if (Model.ImagePath != null)
     {
-        <dl>
-            @*<dt class="col-lg-2">
-                    @Html.DisplayNameFor(model => model.ImagePath)
-                </dt>*@
+        <dl> 
             <dd>
                 <img width="200" height="200" src="~/@Html.DisplayFor(model => model.ImagePath)">
             </dd>
@@ -44,12 +41,6 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Price)
         </dd>
-        @*<dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.UserId)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.UserId)
-            </dd>*@
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Category)
         </dt>
@@ -99,20 +90,10 @@
 
 
     <thead>
-        <tr>
-            @*<th>
-                @Html.DisplayNameFor(model => model.UserId)
-            </th>*@
+        <tr>  
             <th>
                 <h1>Comments</h1>
-            </th>
-            @*<th>
-                @Html.DisplayNameFor(model => model.Product)
-            </th>*@
-            @*<th>
-                <p>Date</p>
-            </th>*@
-            
+            </th>  
         </tr>
     </thead>
     <p>
@@ -122,18 +103,14 @@
         @foreach (var item in Model.Comments)
         {
         <tr>
-            @*<td>
-            @Html.DisplayFor(modelItem => item.UserId)
-        </td>*@
+          
             <dt>
                 @Html.DisplayFor(modelItem => item.User.FullName)
             </dt>
             <td>
                 @Html.DisplayFor(modelItem => item.CommentText)
             </td>
-            @*<td>
-            @Html.DisplayFor(modelItem => item.Product.Description)
-        </td>*@
+           
             <dd>
                 @Html.DisplayFor(modelItem => item.DateCreated)
             </dd>
@@ -142,7 +119,6 @@
                    {
                     <div>
                         <a asp-controller="Comments" asp-action="Edit" asp-route-id="@item.CommentId">Edit</a> |
-                        @*<a asp-action="Details" asp-route-id="@item.CommentId">Details</a> |*@
                         <a asp-controller="Comments" asp-action="Delete" asp-route-id="@item.CommentId">Delete</a>
                     </div>
                     } 

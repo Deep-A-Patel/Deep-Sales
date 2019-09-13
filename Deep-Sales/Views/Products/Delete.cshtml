@@ -13,9 +13,7 @@
     @if (Model.ImagePath != null)
     {
         <dl>
-            @*<dt class="col-lg-2">
-                @Html.DisplayNameFor(model => model.ImagePath)
-            </dt>*@
+           
             <dd>
                 <img width="200" height="200" src="~/@Html.DisplayFor(model => model.ImagePath)">
             </dd>
@@ -40,18 +38,7 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Price)
         </dd>
-        @*<dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ImagePath)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ImagePath)
-        </dd>*@
-        @*<dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.UserId)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.UserId)
-            </dd>*@
+      
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Category)
         </dt>
