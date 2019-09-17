@@ -82,7 +82,13 @@ namespace Deep_Sales.Data
                 {
                     CategoryId = 5,
                     CategoryName = "sunglasses"
+                },
+                new Category()
+                {
+                    CategoryId = 6,
+                    CategoryName = "Other"
                 }
+
             );
 
             modelBuilder.Entity<Product>().HasData(
