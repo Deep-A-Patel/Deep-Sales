@@ -9,14 +9,12 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Upload New Product</a>
+<p class="float-right">
+    <a class="badge badge-pill badge-success" asp-action="Create">Add Product</a>
 </p>
 
-<table class="table">
-    <thead>
+<table class="table table-borderless" id="ProductTable">
+    <thead id="ProductHeader">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.ProductName)
@@ -26,8 +24,8 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ImagePath)
-            </th> 
-            <th></th>
+            </th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -41,21 +39,21 @@
                     @Html.DisplayFor(modelItem => item.Price)
                 </td>
                 <td>
-                    <img width="200" height="200" src="@Url.Content(item.ImagePath)" />
+                    <img class="img-raised rounded-circle" width="200" height="200" src="@Url.Content(item.ImagePath)" />
                 </td>
-               
+
                 @{ if (UserManager.GetUserAsync(User).Result.Id == item.UserId)
                     {
                         <td>
-                            <a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |
-                            <a asp-action="Details" asp-route-id="@item.ProductId">Details</a> |
-                            <a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>
+                            <a class="badge badge-pill badge-primary" asp-action="Edit" asp-route-id="@item.ProductId">Edit</a>
+                            <a class="badge badge-pill badge-primary" asp-action="Details" asp-route-id="@item.ProductId">Details</a>
+                            <a class="badge badge-pill badge-rose" asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>
                         </td>
                     }
                     else
                     {
                         <td>
-                            <a asp-action="Details" asp-route-id="@item.ProductId">Details</a>
+                            <a class="badge badge-pill badge-primary" asp-action="Details" asp-route-id="@item.ProductId">Details</a>
                         </td>
                     }
                 }
