@@ -72,14 +72,14 @@
     @{ if (UserManager.GetUserAsync(User).Result.Id == Model.UserId)
         {
             <div>
-                <a asp-action="Edit" asp-route-id="@Model.ProductId">Edit</a> |
-                <a asp-action="Index">Back to Main Page</a>
+                <a class="badge badge-pill badge-primary" asp-action="Edit" asp-route-id="@Model.ProductId">Edit</a>
+                <a class="badge badge-pill badge-primary" asp-action="Index">Back To Main Page</a>
             </div>
         }
         else
         {
             <div>
-                <a asp-action="Index">Back to Main Page</a>
+                <a class="badge badge-pill badge-primary" asp-action="Index">Back To Main Page</a>
             </div>
         }
     }
@@ -97,7 +97,7 @@
         </tr>
     </thead>
     <p>
-        <a asp-route-productId="@Model.ProductId" asp-controller="Comments" asp-action="Create">Post a Comment</a>
+        <a class="badge badge-pill badge-success" asp-route-productId="@Model.ProductId" asp-controller="Comments" asp-action="Create">Post A Comment</a>
     </p>
     <tbody>
         @foreach (var item in Model.Comments)
@@ -118,8 +118,8 @@
                 @{ if (UserManager.GetUserAsync(User).Result.Id == item.UserId)
                    {
                     <div>
-                        <a asp-controller="Comments" asp-action="Edit" asp-route-id="@item.CommentId">Edit</a> |
-                        <a asp-controller="Comments" asp-action="Delete" asp-route-id="@item.CommentId">Delete</a>
+                        <a class="badge badge-pill badge-primary" asp-controller="Comments" asp-action="Edit" asp-route-id="@item.CommentId">Edit</a>
+                        <a class="badge badge-pill badge-rose" asp-controller="Comments" asp-action="Delete" asp-route-id="@item.CommentId">Delete</a>
                     </div>
                     } 
                  }

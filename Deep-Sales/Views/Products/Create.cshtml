@@ -27,26 +27,28 @@
                 <input asp-for="Price" class="form-control" />
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <div class="col-md-10">
-                    <p>Upload image of Product:</p>
-                    <input type="file" name="file" />
+                    <p>Upload Image Of Product:</p>
                 </div>
             </div>
-           
+            <input id="Input" type="file" name="file" />
+
+
             <div class="form-group">
-                <label asp-for="CategoryId" class="control-label"></label>
+                <label>Category</label>
                 <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-primary btn-round" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Back To List</a>
 </div>
 
 @section Scripts {
